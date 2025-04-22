@@ -2,8 +2,8 @@ package com.thnkscj.braindead;
 
 import com.thnkscj.braindead.compiler.BrainfuckCompiler;
 import com.thnkscj.braindead.compiler.BrainfuckCompilerPool;
-import com.thnkscj.braindead.parser.BrainfuckParser;
-import com.thnkscj.braindead.parser.impl.FileBrainfuckParser;
+import com.thnkscj.braindead.io.BrainfuckSource;
+import com.thnkscj.braindead.io.impl.BrainfuckFileSource;
 import com.thnkscj.braindead.program.CompiledBrainfuckProgram;
 
 import java.io.File;
@@ -18,7 +18,7 @@ public class Main {
             System.exit(1);
         }
 
-        BrainfuckParser parser = new FileBrainfuckParser(new File(args[0]));
+        BrainfuckSource parser = new BrainfuckFileSource(new File(args[0]));
         BrainfuckCompiler compiler = BrainfuckCompilerPool.getCompiler(parser);
         CompiledBrainfuckProgram compiledBrainfuckProgram = compiler.compile();
 

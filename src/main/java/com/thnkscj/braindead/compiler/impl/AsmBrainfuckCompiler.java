@@ -1,7 +1,7 @@
 package com.thnkscj.braindead.compiler.impl;
 
 import com.thnkscj.braindead.compiler.BrainfuckCompiler;
-import com.thnkscj.braindead.parser.BrainfuckParser;
+import com.thnkscj.braindead.io.BrainfuckSource;
 import org.objectweb.asm.MethodVisitor;
 
 import static org.objectweb.asm.Opcodes.*;
@@ -9,7 +9,7 @@ import static org.objectweb.asm.Opcodes.*;
 public abstract class AsmBrainfuckCompiler extends BrainfuckCompiler {
     private static final int MEMORY_SIZE = 30000;
 
-    public AsmBrainfuckCompiler(BrainfuckParser parser) {
+    public AsmBrainfuckCompiler(BrainfuckSource parser) {
         super(parser);
     }
 

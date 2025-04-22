@@ -2,7 +2,7 @@ package com.thnkscj.braindead.compiler;
 
 import com.thnkscj.braindead.compiler.impl.DefaultBrainfuckCompiler;
 import com.thnkscj.braindead.exception.CompilerException;
-import com.thnkscj.braindead.parser.impl.FileBrainfuckParser;
+import com.thnkscj.braindead.io.impl.BrainfuckFileSource;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -25,6 +25,6 @@ class NegativeCompilationTests {
     }
 
     private void compileProgram(File file) {
-        new DefaultBrainfuckCompiler(new FileBrainfuckParser(file)).compile();
+        new DefaultBrainfuckCompiler(new BrainfuckFileSource(file)).compile();
     }
 }

@@ -1,7 +1,7 @@
 import com.thnkscj.braindead.compiler.BrainfuckCompiler;
 import com.thnkscj.braindead.compiler.BrainfuckCompilerPool;
-import com.thnkscj.braindead.parser.BrainfuckParser;
-import com.thnkscj.braindead.parser.impl.FileBrainfuckParser;
+import com.thnkscj.braindead.io.BrainfuckSource;
+import com.thnkscj.braindead.io.impl.BrainfuckFileSource;
 import com.thnkscj.braindead.program.CompiledBrainfuckProgram;
 
 import com.thnkscj.braindead.InMemoryClassLoader;
@@ -21,7 +21,7 @@ public class CoreFunctionalityTests {
         String inputFilePath = "src/test/resources/hello-world.b";
         String expectedOutput = "Hello World!";
 
-        BrainfuckParser parser = new FileBrainfuckParser(new File(inputFilePath));
+        BrainfuckSource parser = new BrainfuckFileSource(new File(inputFilePath));
         BrainfuckCompiler compiler = BrainfuckCompilerPool.getCompiler(parser);
         CompiledBrainfuckProgram compiledProgram = compiler.compile();
 

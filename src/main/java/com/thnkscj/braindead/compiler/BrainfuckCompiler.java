@@ -1,7 +1,7 @@
 package com.thnkscj.braindead.compiler;
 
 import com.thnkscj.braindead.exception.CompilerException;
-import com.thnkscj.braindead.parser.BrainfuckParser;
+import com.thnkscj.braindead.io.BrainfuckSource;
 import com.thnkscj.braindead.program.CompiledBrainfuckProgram;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
@@ -11,12 +11,12 @@ import java.io.IOException;
 import static org.objectweb.asm.Opcodes.RETURN;
 
 public abstract class BrainfuckCompiler {
-    protected final BrainfuckParser parser;
+    protected final BrainfuckSource parser;
     protected ClassWriter classWriter;
     protected MethodVisitor methodVisitor;
     protected String className;
 
-    public BrainfuckCompiler(BrainfuckParser parser) {
+    public BrainfuckCompiler(BrainfuckSource parser) {
         this.parser = parser;
     }
 

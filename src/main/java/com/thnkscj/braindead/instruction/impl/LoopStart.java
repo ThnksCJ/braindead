@@ -1,12 +1,12 @@
 package com.thnkscj.braindead.instruction.impl;
 
-import com.thnkscj.braindead.instruction.BrainfuckInstruction;
+import com.thnkscj.braindead.instruction.BraindeadInstruction;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 
 import static org.objectweb.asm.Opcodes.*;
 
-public class LoopStart implements BrainfuckInstruction {
+public class LoopStart implements BraindeadInstruction {
     private final Label startLabel = new Label();
     private final Label endLabel = new Label();
 

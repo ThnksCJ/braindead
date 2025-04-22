@@ -1,9 +1,9 @@
 package com.thnkscj.braindead.instruction.impl;
 
-import com.thnkscj.braindead.instruction.BrainfuckInstruction;
+import com.thnkscj.braindead.instruction.BraindeadInstruction;
 import org.objectweb.asm.MethodVisitor;
 
-public class IncrementPointer implements BrainfuckInstruction {
+public class IncrementPointer implements BraindeadInstruction {
     @Override
     public void execute(MethodVisitor mv) {
         mv.visitIincInsn(2, 1);

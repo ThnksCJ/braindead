@@ -1,9 +1,8 @@
-// PositiveCompilationTests.java
 package com.thnkscj.braindead.compiler;
 
 import com.thnkscj.braindead.TestUtils;
 import com.thnkscj.braindead.compiler.impl.DefaultBrainfuckCompiler;
-import com.thnkscj.braindead.parser.impl.FileBrainfuckParser;
+import com.thnkscj.braindead.io.impl.BrainfuckFileSource;
 import com.thnkscj.braindead.program.CompiledBrainfuckProgram;
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +28,6 @@ class PositiveCompilationTests {
     }
 
     private CompiledBrainfuckProgram compileProgram(File file) {
-        return new DefaultBrainfuckCompiler(new FileBrainfuckParser(file)).compile();
+        return new DefaultBrainfuckCompiler(new BrainfuckFileSource(file)).compile();
     }
 }

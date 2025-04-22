@@ -1,11 +1,11 @@
 package com.thnkscj.braindead.instruction.impl;
 
-import com.thnkscj.braindead.instruction.BrainfuckInstruction;
+import com.thnkscj.braindead.instruction.BraindeadInstruction;
 import org.objectweb.asm.MethodVisitor;
 
 import static org.objectweb.asm.Opcodes.*;
 
-public class IncrementValue implements BrainfuckInstruction {
+public class IncrementValue implements BraindeadInstruction {
     @Override
     public void execute(MethodVisitor mv) {
         mv.visitVarInsn(ALOAD, 1);
