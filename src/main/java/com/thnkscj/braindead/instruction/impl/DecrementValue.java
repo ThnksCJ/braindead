@@ -1,0 +1,20 @@
+package com.thnkscj.braindead.instruction.impl;
+
+import com.thnkscj.braindead.instruction.BrainfuckInstruction;
+import org.objectweb.asm.MethodVisitor;
+
+import static org.objectweb.asm.Opcodes.*;
+
+public class DecrementValue implements BrainfuckInstruction {
+    @Override
+    public void execute(MethodVisitor mv) {
+        mv.visitVarInsn(ALOAD, 1);
+        mv.visitVarInsn(ILOAD, 2);
+        mv.visitInsn(DUP2);
+        mv.visitInsn(BALOAD);
+        mv.visitInsn(ICONST_1);
+        mv.visitInsn(ISUB);
+        mv.visitInsn(I2B);
+        mv.visitInsn(BASTORE);
+    }
+}
