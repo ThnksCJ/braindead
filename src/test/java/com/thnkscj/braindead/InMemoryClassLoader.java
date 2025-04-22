@@ -1,4 +1,4 @@
-package memory;
+package com.thnkscj.braindead;
 
 import java.util.Map;
 

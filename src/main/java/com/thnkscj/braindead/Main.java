@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 public class Main {
     public static void main(String[] args) throws IOException {
         if (args.length != 1) {
-            System.err.println("Usage: java -jar Braindead.jar <input.bf>");
+            System.err.println("Usage: java -jar Braindead.jar <input.b>");
             System.exit(1);
         }
 

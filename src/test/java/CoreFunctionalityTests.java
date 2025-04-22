@@ -4,14 +4,14 @@ import com.thnkscj.braindead.parser.BrainfuckParser;
 import com.thnkscj.braindead.parser.impl.FileBrainfuckParser;
 import com.thnkscj.braindead.program.CompiledBrainfuckProgram;
 
-import memory.InMemoryClassLoader;
+import com.thnkscj.braindead.InMemoryClassLoader;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.PrintStream;
+import java.io.*;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +27,8 @@ public class CoreFunctionalityTests {
 
         String className = compiledProgram.className();
         byte[] classBytes = compiledProgram.classBytes();
+
+        writeToFile(className + ".class", classBytes);
 
         Map<String, byte[]> classMap = new HashMap<>();
         classMap.put(className, classBytes);
@@ -47,5 +49,13 @@ public class CoreFunctionalityTests {
 
         String output = outContent.toString().trim();
         assert output.equals(expectedOutput) : "Expected: " + expectedOutput + ", but got: " + output;
+    }
+
+    public void writeToFile(String filePath, byte[] content) {
+        try {
+            Files.write(Paths.get(filePath), content);
+        } catch (Exception e) {
+
+        }
     }
 }
