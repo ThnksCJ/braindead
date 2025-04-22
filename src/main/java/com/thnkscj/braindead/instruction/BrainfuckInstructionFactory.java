@@ -1,51 +1,47 @@
 package com.thnkscj.braindead.instruction;
 
-import com.thnkscj.braindead.exception.InstructionCreationException;
 import com.thnkscj.braindead.exception.InvalidBrainfuckInstructionException;
 import com.thnkscj.braindead.exception.UnmatchedLoopEndException;
 import com.thnkscj.braindead.instruction.impl.*;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Stack;
+import java.util.function.Supplier;
 
 public class BrainfuckInstructionFactory {
 
-    private static final Map<Character, Class<? extends BrainfuckInstruction>> instructionMap = new HashMap<>();
-    private static final Stack<LoopStart> loopStartStack = new Stack<>();
+    private static final Map<Character, Supplier<BrainfuckInstruction>> DEFAULT_INSTRUCTIONS = new HashMap<>();
 
     static {
-        instructionMap.put('>', IncrementPointer.class);
-        instructionMap.put('<', DecrementPointer.class);
-        instructionMap.put('+', IncrementValue.class);
-        instructionMap.put('-', DecrementValue.class);
-        instructionMap.put('.', OutputValue.class);
-        instructionMap.put(',', InputValue.class);
-        instructionMap.put('[', LoopStart.class);
-        instructionMap.put(']', LoopEnd.class);
+        DEFAULT_INSTRUCTIONS.put('>', IncrementPointer::new);
+        DEFAULT_INSTRUCTIONS.put('<', DecrementPointer::new);
+        DEFAULT_INSTRUCTIONS.put('+', IncrementValue::new);
+        DEFAULT_INSTRUCTIONS.put('-', DecrementValue::new);
+        DEFAULT_INSTRUCTIONS.put('.', OutputValue::new);
+        DEFAULT_INSTRUCTIONS.put(',', InputValue::new);
     }
 
-    public static BrainfuckInstruction getInstruction(char symbol) {
-        Class<? extends BrainfuckInstruction> instructionClass = instructionMap.get(symbol);
-        if (instructionClass != null) {
-            try {
-                if (instructionClass == LoopStart.class) {
-                    LoopStart loopStart = new LoopStart();
-                    loopStartStack.push(loopStart);
-                    return loopStart;
-                } else if (instructionClass == LoopEnd.class) {
-                    if (loopStartStack.isEmpty()) {
-                        throw new UnmatchedLoopEndException("Unmatched ']' found.");
-                    }
-                    LoopStart loopStart = loopStartStack.pop();
-                    return new LoopEnd(loopStart);
-                } else {
-                    return instructionClass.getDeclaredConstructor().newInstance();
+    private final Deque<LoopStart> loopStartStack = new ArrayDeque<>();
+
+    public BrainfuckInstruction createInstruction(char symbol) {
+        switch (symbol) {
+            case '[':
+                LoopStart loopStart = new LoopStart();
+                loopStartStack.push(loopStart);
+                return loopStart;
+            case ']':
+                if (loopStartStack.isEmpty()) {
+                    throw new UnmatchedLoopEndException("Unmatched ']' found");
                 }
-            } catch (Exception e) {
-                throw new InstructionCreationException("Failed to create instruction instance", e);
-            }
+                return new LoopEnd(loopStartStack.pop());
+            default:
+                Supplier<BrainfuckInstruction> supplier = DEFAULT_INSTRUCTIONS.get(symbol);
+                if (supplier == null) {
+                    throw new InvalidBrainfuckInstructionException("Invalid Brainfuck instruction: " + symbol);
+                }
+                return supplier.get();
         }
-        throw new InvalidBrainfuckInstructionException("Invalid Brainfuck instruction: " + symbol);
     }
 }
