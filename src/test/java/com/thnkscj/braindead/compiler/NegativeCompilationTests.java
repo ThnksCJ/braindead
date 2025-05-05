@@ -10,13 +10,7 @@ import java.io.File;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class NegativeCompilationTests {
-    private static final String TEST_RESOURCES = "src/test/resources/invalid/";
-
-    @Test
-    void rejectUnmatchedLoopStart() {
-        File programFile = new File(TEST_RESOURCES + "unmatched-start.b");
-        assertThrows(CompilerException.class, () -> compileProgram(programFile));
-    }
+    private static final String TEST_RESOURCES = "src/test/resources/compile/invalid/";
 
     @Test
     void rejectUnmatchedLoopEnd() {

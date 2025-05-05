@@ -1,7 +1,5 @@
 package com.thnkscj.braindead.lexer;
 
-import com.thnkscj.braindead.program.BrainfuckInstruction;
-
 import java.util.ArrayList;
 import java.util.List;
 

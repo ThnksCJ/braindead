@@ -11,7 +11,7 @@ import java.io.File;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PositiveCompilationTests {
-    private static final String TEST_RESOURCES = "src/test/resources/";
+    private static final String TEST_RESOURCES = "src/test/resources/compile/valid/";
 
     @Test
     void compileBasicHelloWorld() throws Exception {
@@ -25,6 +25,13 @@ class PositiveCompilationTests {
         File programFile = new File(TEST_RESOURCES + "nested-loops.b");
         String output = TestUtils.executeProgram(compileProgram(programFile));
         assertTrue(output.isEmpty());
+    }
+
+    @Test
+    void compileWithComments() throws Exception {
+        File programFile = new File(TEST_RESOURCES + "comments.b");
+        String output = TestUtils.executeProgram(compileProgram(programFile));
+        assertEquals("8 bit cells", output);
     }
 
     private CompiledBrainfuckProgram compileProgram(File file) {

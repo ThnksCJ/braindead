@@ -10,7 +10,8 @@ import java.util.Collections;
 public class TestUtils {
     public static String executeProgram(CompiledBrainfuckProgram program) throws Exception {
         InMemoryClassLoader classLoader = new InMemoryClassLoader(
-                Collections.singletonMap(program.className(), program.classBytes())
+                Collections.singletonMap(program.className(), program.classBytes()),
+                true
         );
 
         Class<?> clazz = classLoader.loadClass(program.className());
@@ -34,5 +35,13 @@ public class TestUtils {
         } finally {
             System.setOut(originalOut);
         }
+    }
+
+    public static Throwable getRootCause(Throwable throwable) {
+        Throwable cause = throwable.getCause();
+        if (cause != null) {
+            return getRootCause(cause);
+        }
+        return throwable;
     }
 }
